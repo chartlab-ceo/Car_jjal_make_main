@@ -71,6 +71,17 @@
         const CAR4 = "https://t1.daumcdn.net/cfile/tistory/9983F83A5B9F450528";
 
         //console.log("부릉");
+
+        
+        function onFaveritesClick({img})
+        {
+            console.log("이미지 눌렀음");
+            console.log(img);
+            // const nextFaverites = [...faverites,mainCarImg];
+            // setFaverites(nextFaverites);
+            // jsonLocalStorage.setItem("faverites",nextFaverites);            
+        }
+
         function CarItem(props) 
         {
             return (
@@ -78,11 +89,11 @@
                 <img 
                 src = {props.img} 
                 style = {{ width : "150px"}}
+                onClick = {onFaveritesClick}                
                 />
             </li>
             );
         }
-
         function Faverites({faverites}) 
         {
             if(faverites.length === 0)
@@ -178,19 +189,18 @@
 
         //Component 코드 재사용(태그 처럼 사용)     
          const App = () => {
-            //아래 문법 : 만일 undefinded 이거나  null이면 1을 사용해라
-            let jsonResultCounter = jsonLocalStorage.getItem("nowcounter") || 1;
-            //LocalStorage에 로딩(주의:처음은 빈칸일수 있으니 기본값 1을 준다)
-            let [counter,setCounter] = React.useState(
-                //JSonLocalStorage로 로딩
-                Math.max(1,jsonResultCounter));
-                // Math.max(1,Number(localStorage.getItem("counter"))));
+        
+            let [counter,setCounter] = React.useState(() => {
+                return jsonLocalStorage.getItem("nowcounter") || 1;
+            });
+
             const [mainCarImg,setCarImg] = React.useState(CAR1);
             //const [faverites,setFaverites] = React.useState([CAR1,CAR2,CAR3]);
             //faverite가 null이면 []을 사용해라
-            //let jsonResultFaverites = jsonLocalStorage.getItem("faverites") || [CAR1,CAR2,CAR3];
-            let jsonResultFaverites = jsonLocalStorage.getItem("faverites") || [];
-            const [faverites,setFaverites] = React.useState(jsonResultFaverites);
+            //let jsonResultFaverites = jsonLocalStorage.getItem("faverites") || [CAR1,CAR2,CAR3];            
+            const [faverites,setFaverites] = React.useState(() => {
+                return jsonLocalStorage.getItem("faverites") || [];
+            });
                         
             //localStorage 항목의 제거 - localStorage.removeItem('counter');
             //localStorage 항목의 전체 제거 - localStorage.clear();
@@ -223,29 +233,17 @@
             async function updateMainCar(value) {
 
                 const newCat = await fetchCat(value);
-
-                /*//주의: 아래 formsubmit를 하면 브라우져가 기본적으로 Refresh가 됨
-                //console.log("폼 전송됨"); 
-                counter += 1;
-                if(counter >= 4)  { counter = 1; }
-                setCounter(counter);    
-
-                if(mainCarImg == CAR1)            {      setCarImg(CAR2); }
-                else if(mainCarImg == CAR2)       {      setCarImg(CAR3); }
-                else if(mainCarImg == CAR3)       {      setCarImg(CAR4); }
-                else if(mainCarImg == CAR4)             setCarImg(CAR1); */
-                
                 setCarImg(newCat);
 
-                //LocalStorage에 저장
-                //localStorage.setItem("counter",counter);
-                //JSonLocalStorage로 저장
-                jsonLocalStorage.setItem("nowcounter",counter);
+                setCounter((prev) => {
+                    const nextCounter = prev + 1;
+                    jsonLocalStorage.setItem("nowcounter",nextCounter);
+                    return nextCounter; 
+                });             
             }
             
             function handleHeartClick()
             {
-                //console.log("하트 눌렀음");
                 const nextFaverites = [...faverites,mainCarImg];
                 setFaverites(nextFaverites);
                 jsonLocalStorage.setItem("faverites",nextFaverites);
@@ -265,28 +263,6 @@
         const 여기다그려 = document.querySelector("#app");
         //ReactDOM.render(app,여기다그려);
         ReactDOM.render(<App />,여기다그려);
-
-    /*//1.좋아요 버튼 찾기(.main-cart/button)
-    const likeButton = document.querySelector(".main-card button")
-    //2.좋아요 눌렀을때 이벤트
-    likeButton.addEventListener("click",function (){
-        //3.하트 색 바꾸기
-        likeButton.innerHTML = "💖";
-
-        //4.고양이 사진을 추가할곳 찾기
-        const favorites = document.querySelector(".favorites");
-
-        //5새로운 고양이 사진 만들기
-        const newFavoriteImage = document.createElement("img");
-        newFavoriteImage.src = "http://img.danawa.com/cms/img/2014/06/13/1402626434_thumb.jpg";
-
-        //6.고양이 사진을 감싸는 li태그 만들기
-        const li = document.createElement("li");
-        //7.li태그에 고양이 사진 넣기
-        li.appendChild(newFavoriteImage);
-        //8.방금 만든 요소 넣기
-        favorites.appendChild(li);
-    });*/
 </script>
 
 
