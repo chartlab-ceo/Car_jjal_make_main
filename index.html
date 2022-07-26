@@ -7,7 +7,36 @@
     <title>자동차가라사대!</title>    
     
     <!-- stylesheet연결 -->
-    <link rel = "stylesheet" type = "text/css" href="/css/App.css">
+    <!-- <link rel = "stylesheet" type = "text/css" href="/css/App.css"> -->
+    body {
+        text-align: center;
+    }
+
+    .main-card button {
+        position: relative;
+        left: -45px;
+        bottom : 15px;
+    }
+
+    .favorites {
+        list-style: none;
+        /* border: 2px dotted; */
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap : 15px;
+    }
+
+    .favorites img {
+        width:  150px;
+    }    
+    
+    /* ul태그의 블릿없애기 들여쓰기 안하기 */
+    ul {
+    list-style:circle;
+    padding-left:0px;
+    }
+
 </head>
 
 <body>
