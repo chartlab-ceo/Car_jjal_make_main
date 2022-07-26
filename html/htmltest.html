@@ -1,0 +1,168 @@
+<html lang="en">
+<head>
+    <!-- meta 태그 - 문서의 문자열 인코딩등 다양한 정보 제공 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자동차가라사대!</title>    
+    
+    <!-- stylesheet연결 -->
+    <link rel = "stylesheet" type = "text/css" href="../css/App.css">
+</head>
+
+<body>
+<h1> 1번째 자동차 가라사대 </h1>
+<form>
+    <input type = "text" name = "name" placeholder="영어 대사를 입력해주세요"/>
+    <button type = "submit"> 생성 </button>
+</form>
+
+<div class = "main-card">
+    <img 
+    src = "https://c.wallhere.com/photos/85/46/Tesla_Motors_Tesla_Model_S_car-56926.jpg!d"
+    alt = "자동차"
+    width = 400px
+    />
+    <button>"🤍"</button>    
+</div>
+
+<ul class = "favorites">
+    <li>
+        <img 
+        src = "http://img.danawa.com/cms/img/2014/06/13/1402626434_thumb.jpg"
+        alt = "자동차"
+        />
+    </li>
+    <li>
+        <img 
+        src = "https://img.hankyung.com/photo/202104/01.25994984.1.jpg"
+        alt = "자동차"
+        />
+    </li>    
+    <li>
+        <img 
+        src = "http://img.danawa.com/cms/img/2014/06/13/1402626434_thumb.jpg"
+        alt = "자동차"
+        />
+    </li>
+</ul>
+
+<!-- 브라우저는 defer 속성이 있는 스크립트(이하 defer 스크립트 또는 지연 스크립트)를 '백그라운드’에서 다운로드 합니다. 
+    따라서 지연 스크립트를 다운로드 하는 도중에도 HTML 파싱이 멈추지 않습니다.
+     그리고 defer 스크립트 실행은 페이지 구성이 끝날 때까지 지연 됩니다. -->
+<script defer src="../src/App.js"> </script>
+
+<h1>h1 :블락태그 - 제목 </h1>
+<p>h1 :블락태그 - 문장 </p>
+<br>br : 줄바꿈 </br>
+<b>b:인라인태그 - 굵은 글씨</b><br>
+<i>i:인라인태그 - 기울기 글씨</i><br>
+<hr> hr : 블락태그 - 밑줄
+<div>div: 블락태그- 상자를 만듬</div>
+
+<!-- <span></span> 태그는 <div></div> 태그처럼 특별한 기능을 갖고있지 않고, CSS와 함께 쓰입니다.
+<div> 태그와의 차이점은 display속성이 block이 아닌, inline이라는 점인데, 이는 CSS display 항목에서 세부 정보를 알 수 있습니다.
+이 둘의 차이를 쉽게 설명하자면, <div>는 줄 바꿈이 되지만, <span>은 줄 바꿈이 되지 않다는 점입니다. -->
+<span style="background-color:red">span1</span>
+<span style="background-color:blue">span2</span>
+<span style="background-color:green">span3</span>
+<br>
+<img src = "http://img.danawa.com/cms/img/2014/06/13/1402626434_thumb.jpg" alt = "자동차" width = "100px" height = "auto">
+
+<!-- Input태그들 - 사용자가 입력/선택 -->
+<br><br>
+<input type = "text" name = "" id = "" placeholder="input : text">
+<br><br>
+<input type = "checkbox" checked = "true"> 짜장면
+<input type = "checkbox"> 짬뽕
+<input type = "checkbox"> 탕수육
+<br><br>
+<input type = "radio" name="gender" checked> 남자
+<input type = "radio" name="gender">  여자
+<br><br>
+<input type = "password" placeholder="input:password"> 비밀번호
+<br><br>
+<input type = "button" value="input:button">
+<br><br>
+<!-- "accept" - 입력받을 수 있는 파일의 유형을 지정하는 속성입니다 -->
+<!-- multiple - 여러파일 선택가능 -->
+<input type = "file" id="file_uploads" accept="../html/*.html" multiple>
+<br><br>
+<input type = "email" placeholder="input:email">
+<br><br>
+
+<!-- form태그 데이터를 전송하기 위한 태그
+action속성 : 데이터를 전송할 url
+method속성 : 데이터 전달 방싱이 get인지 set인지 결정-->
+<form action="#" accept-charset="utf-8" name = "person_info" method = "get">
+    <fieldset style = "width: 150">
+        <legend>개인 정보 입력</legend>
+        이름:<input type = "text" name = "name"/><br><br>
+        나이:<input type = "text" name = "age"/><br><br>
+        생년월일:<input type = "text" name = "birthdate" pattern="[0-9]{6}" title="yymmdd'와 같은 6자리 숫자"/>
+        <legend>여가 활동</legend>
+        취미:<input type = "text" name = "hobby"/><br><br>
+        특기:<input type = "text" name = "speciality"/><br><br>
+
+        <!-- 주의 submit클릭하면 html이 reloading된다 -->
+        <input type = "submit" value = "submit"/>
+        <input type = "reset" value = "reset"/>
+    </fieldset>    
+</form>
+<br><br>
+<button>button :인라인태그 - 버튼</button>
+<br><br>
+<a href="https://www.naver.com">네이버</a>
+<br><br>
+과일
+<ol>
+    <li>사과</li>
+    <li>포도</li>
+    <li>오랜지</li>
+</ol>
+야채
+<ul>
+    <li>오이</li>
+    <li>당근</li>
+    <li>배추</li>
+</ul>
+
+<form action="#" accept-charset="utf-8" name = "persion_address" method = "get">
+    <fieldset style = "width: 300">
+        <legend>주소 입력</legend>
+        지역선택(size,multiple속성추가)    <br>
+        <select name = "city2" size = "5" multiple>
+             <option value = "songnam-si"> 성남시</option>   
+             <option value = "suwon-si"> 수원시</option>   
+             <option value = "yongin-si"> 용인시</option>   
+             <option value = "anyang-si"> 안양시</option>   
+             <option value = "gwacheon-si"> 과천시</option>   
+             <option value = "hanam-si"> 하남시</option>   
+        </select>
+        <br><br>
+        지역선택(optgroup태그 포함)<br>
+        <select name = "city1">
+            <optgroup label = "서울">
+                <option value = "songpa-gu"> 송파구</option>   
+                <option value = "gangnam-gu"> 강남구</option>   
+                <option value = "secho-gu"> 서초구</option>   
+                <option value = "jongro-gu"> 종로구</option>   
+                <option value = "gangsu-gu"> 강서구</option>   
+            </optgroup>
+
+            <optgroup label = "경기도북북">
+                <option value = "kimpo-si"> 김포시</option>   
+                <option value = "paju-si"> 파주시</option>   
+                <option value = "ynagju-si"> 양주시</option>   
+                <option value = "dongducheon-si"> 동두천시</option> 
+            </optgroup>
+       </select>
+        <br><br>
+        <!-- 주의 submit클릭하면 html이 reloading된다 -->
+        <input type = "submit" value = "submit"/>
+        <input type = "reset" value = "reset"/>
+    </fieldset>    
+</form>
+
+</body>
+</html>

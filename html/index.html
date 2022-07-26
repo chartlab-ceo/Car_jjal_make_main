@@ -1,0 +1,225 @@
+<html lang="en">
+<head>
+    <!-- meta 태그 - 문서의 문자열 인코딩등 다양한 정보 제공 -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자동차가라사대!</title>    
+    
+    <!-- stylesheet연결 -->
+    <link rel = "stylesheet" type = "text/css" href="../css/App.css">
+</head>
+
+<body>
+    <div id = "app"> </div>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>    
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>  
+    <script type = "text/babel">
+
+        //JSON형식의 데이터 저장/로딩
+        const jsonLocalStorage = {
+            setItem: (key, value) => {
+            localStorage.setItem(key, JSON.stringify(value));
+            },
+            getItem: (key) => {
+            return JSON.parse(localStorage.getItem(key));
+            },
+        };
+
+        const CAR1 = "http://img.danawa.com/cms/img/2014/06/13/1402626434_thumb.jpg";
+        const CAR2 = "https://c.wallhere.com/photos/85/46/Tesla_Motors_Tesla_Model_S_car-56926.jpg!d";
+        const CAR3 = "https://img.hankyung.com/photo/202104/01.25994984.1.jpg";
+        const CAR4 = "https://t1.daumcdn.net/cfile/tistory/9983F83A5B9F450528";
+
+        console.log("부릉");
+        function CarItem(props) 
+        {
+            return (
+            <li>
+                <img 
+                src = {props.img} 
+                style = {{ width : "150px"}}
+                />
+            </li>
+            );
+        }
+
+        function Faverites({faverites}) 
+        {
+            // const cars = [CAR1,CAR2,CAR3,CAR4];
+            // //주의: react 문법에서 class는 className으로 사용해야 한다
+            // //아래 샘플 - Array.map
+            // return (
+            //     <ul className = "favorites">
+            //     { cars.map((car) => ( <CarItem img={car} key={car}/>))}
+            //     </ul>
+            // ); 
+
+            //주의: react 문법에서 class는 className으로 사용해야 한다
+            //아래 샘플 - Array.map
+            return (
+                <ul className = "favorites">
+                { faverites.map((car) => ( <CarItem img={car} key={car}/>))}
+                </ul>
+            ); 
+        }   
+
+        //함수인데 function으로 명시하지 않은 화살표 함수형태로 
+        //주의:새로운 문법 props를 쓰지 않고 
+        //사용자 img를 직접 사용하려면 ({img})라고 하고 아래에 그대로 {img}를 쓰면 된다
+        const MainCard = ({img,onHeartClick}) => {
+
+            return (
+                <div className = "main-card">
+                <img 
+                src = {img}
+                alt = "자동차"
+                width = "400"
+                />
+                <button onClick = {onHeartClick}>"🤍"</button>    
+                </div>
+            );
+        } 
+
+        const Title = (props) =>  {
+            return (
+                <h1> { props.children } </h1>
+            );
+        }
+
+        const Form = ({updateMainCar}) => {           
+
+            const includesHangul = (text) => /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/i.test(text);
+            const [value,setValue]  = React.useState('');
+            const [errorMsg,setErrorMsg]  = React.useState('');
+            
+            function handleInputChange(e)
+            {
+                const userValue = e.target.value;
+                console.log(includesHangul(userValue));
+                setErrorMsg('');
+                if(includesHangul(userValue))
+                {
+                    setErrorMsg('한글은 입력할수 없습니다');
+                }
+                setValue(userValue.toUpperCase());
+            }
+
+            function handleFormSubmit(e) {
+                e.preventDefault();
+
+                setErrorMsg("");
+                if(value == "")
+                {
+                    setErrorMsg('빈 값으로 만들수 없습니다');
+                    return;
+                }
+
+                updateMainCar();
+            }
+
+            return (
+                <form onSubmit = {handleFormSubmit}>
+                <input type = "text" name = "name" placeholder="영어 대사를 입력해주세요"
+                onChange= {handleInputChange}
+                value = {value}
+                />
+                <button type = "submit"> 생성 </button>
+                <p style = {{color : 'red'}}> {errorMsg} </p>
+            </form>
+            );
+        }
+
+        //Component 코드 재사용(태그 처럼 사용)     
+         const App = () => {
+            //아래 문법 : 만일 undefinded 이거나  null이면 1을 사용해라
+            let jsonResultCounter = jsonLocalStorage.getItem("nowcounter") || 1;
+            //LocalStorage에 로딩(주의:처음은 빈칸일수 있으니 기본값 1을 준다)
+            let [counter,setCounter] = React.useState(
+                //JSonLocalStorage로 로딩
+                Math.max(1,jsonResultCounter));
+                // Math.max(1,Number(localStorage.getItem("counter"))));
+            const [mainCarImg,setCarImg] = React.useState(CAR1);
+            //const [faverites,setFaverites] = React.useState([CAR1,CAR2,CAR3]);
+            //faverite가 null이면 []을 사용해라
+            let jsonResultFaverites = jsonLocalStorage.getItem("faverites") || [CAR1,CAR2,CAR3];
+            const [faverites,setFaverites] = React.useState(jsonResultFaverites);
+                        
+            //localStorage 항목의 제거 - localStorage.removeItem('counter');
+            //localStorage 항목의 전체 제거 - localStorage.clear();
+
+            function updateMainCar() {
+                //주의: 아래 formsubmit를 하면 브라우져가 기본적으로 Refresh가 됨
+                console.log("폼 전송됨"); 
+                counter += 1;
+                if(counter >= 4)  { counter = 1; }
+                setCounter(counter);    
+
+                if(mainCarImg == CAR1)            {      setCarImg(CAR2); }
+                else if(mainCarImg == CAR2)       {      setCarImg(CAR3); }
+                else if(mainCarImg == CAR3)       {      setCarImg(CAR4); }
+                else if(mainCarImg == CAR4)       {      setCarImg(CAR1); }
+
+                //LocalStorage에 저장
+                //localStorage.setItem("counter",counter);
+                //JSonLocalStorage로 저장
+                jsonLocalStorage.setItem("nowcounter",counter);
+            }
+            
+            function handleHeartClick()
+            {
+                //console.log("하트 눌렀음");
+                const nextFaverites = [...faverites,mainCarImg];
+                setFaverites(nextFaverites);
+                jsonLocalStorage.setItem("faverites",nextFaverites);
+            }
+
+            //handler함수이름을 props으로 넘길때 약속 on~으로 시작
+            return (
+                <div>
+                    <Title> {counter}번째 자동차 가라사대</Title>
+                    <Form updateMainCar = {updateMainCar}/>
+                    <MainCard img = {mainCarImg} onHeartClick = {handleHeartClick}  />
+                    <Faverites faverites = {faverites}/> 
+                </div>
+            );
+        }
+
+        const 여기다그려 = document.querySelector("#app");
+        //ReactDOM.render(app,여기다그려);
+        ReactDOM.render(<App />,여기다그려);
+
+    /*//1.좋아요 버튼 찾기(.main-cart/button)
+    const likeButton = document.querySelector(".main-card button")
+    //2.좋아요 눌렀을때 이벤트
+    likeButton.addEventListener("click",function (){
+        //3.하트 색 바꾸기
+        likeButton.innerHTML = "💖";
+
+        //4.고양이 사진을 추가할곳 찾기
+        const favorites = document.querySelector(".favorites");
+
+        //5새로운 고양이 사진 만들기
+        const newFavoriteImage = document.createElement("img");
+        newFavoriteImage.src = "http://img.danawa.com/cms/img/2014/06/13/1402626434_thumb.jpg";
+
+        //6.고양이 사진을 감싸는 li태그 만들기
+        const li = document.createElement("li");
+        //7.li태그에 고양이 사진 넣기
+        li.appendChild(newFavoriteImage);
+        //8.방금 만든 요소 넣기
+        favorites.appendChild(li);
+    });*/
+</script>
+
+
+
+<!-- 브라우저는 defer 속성이 있는 스크립트(이하 defer 스크립트 또는 지연 스크립트)를 '백그라운드’에서 다운로드 합니다. 
+    따라서 지연 스크립트를 다운로드 하는 도중에도 HTML 파싱이 멈추지 않습니다.
+     그리고 defer 스크립트 실행은 페이지 구성이 끝날 때까지 지연 됩니다. -->
+<!-- <script defer src="../src/App.js"> </script> -->
+
+</body>
+</html>

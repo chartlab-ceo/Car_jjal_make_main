@@ -1,0 +1,42 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- react,reat-dom(recat를 웹에다 붙여줌) -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+</head>
+<body>
+    <div id = "root"> </div>    <!-- div id는 root 를 아래 실행 => <div> < button></button>like></button></div> -->
+
+    <script>
+        const e = React.createElement;
+
+        class LikeButton extends React.Component {
+            constructor(props)
+            {
+                super(props);
+            }
+
+            //화면에 어떻게 표현해야할지 결정하는 메소드
+            render()
+            {
+                //아래 주석같은 버튼 태그를 만들겠다(만들었다가 아님 - reactDom을 동해서 붙여야함)
+                return e('button', null,'liked');   //<button>like</button>
+
+                // return e('button', 
+                // {   
+                //      onclick : () => this.setState({liked : true }) 
+                // },)
+            }
+        }
+    </script>
+
+    <script>
+        ReactDOM.render(e(LikeButton),document.querySelector('#root'));
+    </script>
+</body>
+</html>
