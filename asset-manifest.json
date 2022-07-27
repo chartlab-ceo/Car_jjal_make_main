@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Car_jjal_make_main/static/css/main.073c9b0a.css",
+    "main.js": "/Car_jjal_make_main/static/js/main.6d2c78ef.js",
+    "static/js/787.d4f315a4.chunk.js": "/Car_jjal_make_main/static/js/787.d4f315a4.chunk.js",
+    "index.html": "/Car_jjal_make_main/index.html",
+    "main.073c9b0a.css.map": "/Car_jjal_make_main/static/css/main.073c9b0a.css.map",
+    "main.6d2c78ef.js.map": "/Car_jjal_make_main/static/js/main.6d2c78ef.js.map",
+    "787.d4f315a4.chunk.js.map": "/Car_jjal_make_main/static/js/787.d4f315a4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.073c9b0a.css",
+    "static/js/main.6d2c78ef.js"
+  ]
+}
